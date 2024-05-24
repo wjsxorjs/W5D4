@@ -8,13 +8,14 @@
 <select id="all" resultType="mybatis.vo.MemoVO">
 	SELECT *
 	FROM memo_t
+	ORDER BY m_idx DESC;
 </select>
 
 
 <insert id="add" parameterType="Map">
 	INSERT
 	INTO memo_t(`content`,`writer`,`ip`,`write_date`)
-	VALUES(#{content},#{writer},#{ip},now())
+	VALUES(#{content},#{writer},#{ip}, now())
 </insert>
 
 </mapper>

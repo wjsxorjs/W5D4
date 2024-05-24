@@ -87,12 +87,19 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<td colspan="4" >
+					<td colspan="3" >
 						<p class="btn">
 							<a href="javascript:writeMemo()">
 								글쓰기
 							</a>
 						</p>	
+					</td>
+					<td>
+						<p class="btn">
+							<a href="javascript:location.href='index.jsp?mode=1'">
+								뒤로
+							</a>
+						</p>
 					</td>
 				</tr>
 				<tr>
@@ -107,16 +114,25 @@
 				// 메모리스트
 				SqlSession ss = FactoryService.getFactory().openSession();
 				List<MemoVO> m_list = ss.selectList("memo.all");
-				if(m_list != null || m_list.size() >0){
+				if(m_list.size() >0){
 					for(MemoVO mevo: m_list){
-						%><tr><%
-							%><td><%=mevo.getM_idx() %></td><%
-							%><td><%=mevo.getContent() %></td><%
-							%><td><%=mevo.getWriter() %></td><%
-							%><td><%=mevo.getWrite_date() %></td><%
-						%></tr><%
+						%><tr>
+							<td><%=mevo.getM_idx() %></td>
+							<td><%=mevo.getContent() %></td>
+							<td><%=mevo.getWriter() %></td>
+							<td><%=mevo.getWrite_date() %></td>
+						</tr><%
 					}
+				} else { // 등록된 메모가 없을 때
+				%>
+					<tr>
+						<td colspan="4">
+							등록된 메모가 없습니다.
+						</td>
+					</tr>		
+				<%
 				}
+				ss.close();
 				
 			%>
 			</tbody>
@@ -169,6 +185,17 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script>
+		<%--
+			String svChk = request.getParameter("svChk");
+			if(svChk != null){
+				%>
+				alert("저장 성공!");
+				location.href="memoList.jsp";
+				<%
+			}
+		--%>
+	
+	
 		function writeMemo(){
 			// 안 보이던 div가 보이도록 하는 부분
 			$("#write_win").dialog({

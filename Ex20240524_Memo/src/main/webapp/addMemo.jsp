@@ -28,9 +28,14 @@
 		
 		if(chk == 1){
 			ss.commit();
-			response.sendRedirect("memoList.jsp");
+		} else{
+			ss.rollback();
 		}
+		ss.close();
 	}
+	
+	response.sendRedirect("memoList.jsp");
+	
 %>
 </body>
 </html>
