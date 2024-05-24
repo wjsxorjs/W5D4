@@ -53,6 +53,7 @@
 	String mode = request.getParameter("mode");// null 또는 0 또는 1
 	//null은 처음 index.jsp를 시작하면 받는 값이다.
 	Object obj = session.getAttribute("mvo");
+	// if(mode == null || mode.equals("0")){
 	if(obj == null){
 %>
 	<div id="log_fail" class="show">
